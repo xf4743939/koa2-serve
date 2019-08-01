@@ -15,10 +15,10 @@ router.get('/v1/user', async (ctx, next) => {
             msg: "没有找到相关书籍"
         })
     }
-    ctx.body = JSON.stringify({
+    ctx.body = {
         code: 0,
         data: address,
-    })
+    }
     // ctx.state = 200
     // ctx.body = JSON.stringify({
     //     code: 0,

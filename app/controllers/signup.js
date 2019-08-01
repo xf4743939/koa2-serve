@@ -1,0 +1,3 @@
+exports.postSignUp = async ctx => {
+
+}

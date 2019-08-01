@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize')
-
+const chalk = require("chalk")
 const sqlConfig = {
     database: 'lin-cms',
     host: 'localhost',
@@ -18,4 +18,5 @@ const db = new Sequelize(sqlConfig.database, sqlConfig.username, sqlConfig.passw
     },
     timezone: '+08:00' //东八时区
 })
+
 module.exports = db

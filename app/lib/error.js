@@ -12,7 +12,6 @@ exports.error = function (err, ctx) {
             url: ctx.req.url
         })
     } else {
-
         ctx.body = JSON.stringify({
             error_code: 999,
             msg: "服务器未知错误",

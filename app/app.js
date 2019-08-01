@@ -2,6 +2,8 @@ const koa = require('koa');
 const bodyParser = require('koa-bodyparser');
 const cors = require("@koa/cors")
 const serve = require("koa-static")
+const json = require("koa-json")
+const logger = require("koa-logger")
 const path = require("path")
 const InitManager = require('./lib/core.js')
 const {
@@ -10,11 +12,17 @@ const {
 const app = new koa();
 
 
+
 app.use(bodyParser())
+app.use(json())
+app.use(logger())
+
 app.use(cors()) //配置跨域
 
 const main = serve(path.join(__dirname))
 app.use(main)
+
+
 
 app.on("error", error)
 
