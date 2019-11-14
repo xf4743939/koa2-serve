@@ -1,33 +1,20 @@
 const koa = require('koa');
 const bodyParser = require('koa-bodyparser');
 const cors = require("@koa/cors")
-const serve = require("koa-static")
 const json = require("koa-json")
 const logger = require("koa-logger")
-const path = require("path")
 const InitManager = require('./lib/core.js')
-const {
-    error
-} = require("./lib/error.js")
+const catchError = require('./middlewares/exceptions')
 const app = new koa();
-
-
-
+app.use(cors()) //配置跨域
+app.use(catchError())
 app.use(bodyParser())
 app.use(json())
 app.use(logger())
 
-app.use(cors()) //配置跨域
-
-const main = serve(path.join(__dirname))
-app.use(main)
-
-
-
-app.on("error", error)
 
 InitManager.initApp(app)
 
 app.listen(3000, () => {
-    console.log(`listening at port 3000`)
+  console.log(`listening at port 3000`)
 })
