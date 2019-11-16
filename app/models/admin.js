@@ -1,30 +1,47 @@
-const Sequelize = require('sequelize')
-const db = require("../config/dbCon.js")
+const {
+  Sequelize,
+  Model
+} = require('sequelize')
 
-const admin = db.define("admin", {
+const {
+  db
+} = require("../config/dbCon.js")
+// 定义模型和表之间的映射
+class Admin extends Model {}
+
+Admin.init({
+  // 可以为空 创建时
   id: {
     type: Sequelize.INTEGER,
     primaryKey: true,
     autoIncrement: true,
+  },
+  nickname: {
+    type: Sequelize.STRING(64),
     allowNull: false,
-    unique: true
+    comment: '管理员名称'
   },
-  name: {
+  email: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
+    unique: true,
   },
-  password: Sequelize.STRING,
-  moment: {
+  password: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
+    comment: "管理员密码"
   },
-  avator: {
-    type: Sequelize.STRING
-  },
-
+  ceeatedAt: {
+    type: Sequelize.DATE,
+    allowNull: false,
+    defaultValue: Sequelize.NOW
+  }
 }, {
-  freezeTableName: true,
-  timestamps: false
+  db,
+  modelName: 'admin',
+  tableName: 'admin'
 })
 
-module.exports = admin
+module.exports = {
+  Admin
+}

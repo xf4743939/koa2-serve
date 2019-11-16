@@ -1,4 +1,6 @@
-const HttpException = require('../lib/exception')
+const {
+  HttpException
+} = require('../lib/exception')
 
 function catchError() {
   return async (ctx, next) => {

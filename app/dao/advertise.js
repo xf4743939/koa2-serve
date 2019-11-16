@@ -3,7 +3,7 @@ const {
 } = require('../models/admin.js')
 
 // 链接数据库
-class AdminDao {
+class AdvertiseDao {
   // 创建管理员
   static async create(v) {
     const hasAdmin = await Admin.findOne({
@@ -21,5 +21,5 @@ class AdminDao {
     admin.save()
   }
   // 查询管理员信息
-  // static async 
+  static async
 }

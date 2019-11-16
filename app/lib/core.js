@@ -11,6 +11,7 @@ class InitManager {
     //5.加载认证jwt
     //6.挂在路由
     InitManager.loadRouter()
+    InitManager.loadHttpException()
   }
   async applyDB() {
 
@@ -28,6 +29,12 @@ class InitManager {
         InitManager.app.use(obj.routes(), obj.allowedMethods())
       }
     }
+  }
+
+  // 处理异常
+  static loadHttpException() {
+    const errors = require('./exception.js')
+    global.errs = errors
   }
 
 }
