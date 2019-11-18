@@ -7,9 +7,10 @@ function catchError() {
     try {
       await next()
     } catch (error) {
+
       // 开发环境
       const isHttpException = error instanceof HttpException;
-      const isDev = global.config.environment === 'dev';
+      const isDev = true;
 
       if (isDev && !isHttpException) {
         throw error
@@ -19,14 +20,14 @@ function catchError() {
       if (isHttpException) {
         ctx.body = {
           msg: error.msg,
-          error_code: error.errorCode,
+          code:error.code,
           request: `${ctx.method} ${ctx.path}`
         }
         ctx.response.status = error.code
       } else {
         ctx.body = {
           msg: "未知错误！",
-          error_code: 9999,
+          code: 9999,
           request: `${ctx.method} ${ctx.path}`
         }
         ctx.response.status = 500
