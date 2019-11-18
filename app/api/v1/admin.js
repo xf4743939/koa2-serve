@@ -4,14 +4,19 @@ const router = new Router({
   prefix: '/v1'
 })
 
-router.get('/advertise', async (ctx, next) => {
-  const page = ctx.query.page;
+const adminController = require('../../controllers/admin.js')
+
+router.post('/register', async (ctx, next) => {
+  console.log(ctx)
+  debugger
+})
+
+router.get('/auth', async (ctx) => {
   ctx.response.status = 200
-  ctx.body = {
+  ctx.body = JSON.stringify({
     code: 0,
-    data: [],
-    msg: 'success'
-  }
+    msg: '成功'
+  })
 })
 
 module.exports = router
