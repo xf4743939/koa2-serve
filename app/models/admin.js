@@ -1,6 +1,7 @@
 const {
   Sequelize,
-  Model
+  Model,
+  DataTypes
 } = require('sequelize')
 
 const {

@@ -5,29 +5,24 @@ const {
 const {
   db
 } = require('../lib/core.js')
+const {
+  Comment
+} = require('./comment.js')
 
-class Comment extends Model {}
+class Reply extends Model {
 
-Comment.init({
+}
+
+Reply.init({
   id: {
     type: Sequelize.INTEGER,
     primaryKey: true,
     autoIncrement: true
   },
-  target_id: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-    comment: '评论目标id'
-  },
-  target_type: {
-    type: Sequelize.STRING(32),
-    allowNull: true,
-    comment: '评论的目标类型'
-  },
   nickname: {
     type: Sequelize.STRING(64),
     allowNull: false,
-    comment: '评论人姓名'
+    comment: '回复人姓名'
   },
   email: {
     type: Sequelize.STRING(64),
@@ -43,10 +38,23 @@ Comment.init({
   }
 }, {
   db,
-  modelName: 'comment',
-  tableName: 'comment'
+  modelName: "reply",
+  tableName: 'reply'
+})
+
+// 一对多 评论表下有多个评论
+Comment.hasMany(Reply, {
+  foreignKey: 'comment_id',
+  sourceKey: 'id',
+  as: 'reply'
+})
+
+Reply.belongsTo(Comment, {
+  foreignKey: "comment_id",
+  sourceKey: 'id',
+  as: "comment"
 })
 
 module.exports = {
-  Comment
+  Reply
 }

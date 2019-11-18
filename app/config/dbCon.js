@@ -21,6 +21,7 @@ const db = new Sequelize(sqlConfig.database, sqlConfig.username, sqlConfig.passw
   timezone: '+08:00' //东八时区
 })
 
+// 自动同步所有model
 db.sync({
   force: false
 })

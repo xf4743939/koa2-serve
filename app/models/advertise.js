@@ -11,7 +11,6 @@ class Advertise extends Model {}
 Advertise.init({
   id: {
     type: Sequelize.INTEGER,
-    allowNull: false,
     primaryKey: true,
     autoIncrement: true
   },
@@ -25,7 +24,7 @@ Advertise.init({
     allowNull: false,
     comment: '广告链接'
   },
-  ceeatedAt: {
+  ceeated_at: {
     type: Sequelize.DATE,
     allowNull: false,
     defaultValue: Sequelize.NOW
