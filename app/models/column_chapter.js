@@ -3,8 +3,9 @@ const {
   Model
 } = require('sequelize')
 const {
-  db
-} = require('../lib/core.js')
+  sequelize
+} = require("../config/dbCon.js")
+
 const {
   Column
 } = require('./column.js')
@@ -22,14 +23,16 @@ ColumnChapter.init({
     allowNull: false,
     comment: '专栏章节标题'
   },
-  create_at: {
+  created_at: {
     type: Sequelize.DATE,
-    allowNull: false
+    allowNull: false,
+    defaultValue: Sequelize.NOW
   }
 }, {
-  db,
+  sequelize,
   modelName: 'column_chapter',
-  tableName: 'column_chapter'
+  tableName: 'column_chapter',
+  timestamps: false
 })
 // 一对多：专栏表下拥有多个章节
 Column.hasMany(ColumnChapter, {

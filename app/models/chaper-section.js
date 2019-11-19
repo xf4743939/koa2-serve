@@ -3,8 +3,10 @@ const {
   Model
 } = require('sequelize')
 const {
-  db
-} = require('../lib/core.js')
+  sequelize
+} = require("../config/dbCon.js")
+
+
 const {
   ColumnChapter
 } = require('./column_chapter.js')
@@ -31,14 +33,16 @@ ChaperSection.init({
     type: Sequelize.TEXT,
     allowNull: false
   },
-  create_at: {
+  created_at: {
     type: Sequelize.DATE,
-    allowNull: false
+    allowNull: false,
+    defaultValue: Sequelize.NOW
   }
 }, {
-  db,
+  sequelize,
   modelName: 'chaper_section',
-  tableName: 'chaper_section'
+  tableName: 'chaper_section',
+  timestamps: false
 })
 
 // 一对多：章节表下拥有多个专栏文章

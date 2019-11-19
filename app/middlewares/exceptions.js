@@ -10,17 +10,15 @@ function catchError() {
 
       // 开发环境
       const isHttpException = error instanceof HttpException;
-      const isDev = true;
-
+      const isDev = process.env.NODE_ENV == 'development';
       if (isDev && !isHttpException) {
         throw error
       }
-
       // 生成环境
       if (isHttpException) {
         ctx.body = {
           msg: error.msg,
-          code:error.code,
+          code: error.code,
           request: `${ctx.method} ${ctx.path}`
         }
         ctx.response.status = error.code

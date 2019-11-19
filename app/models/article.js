@@ -3,8 +3,8 @@ const {
   Model
 } = require('sequelize')
 const {
-  db
-} = require('../lib/core.js')
+  sequelize
+} = require("../config/dbCon.js")
 const {
   Category
 } = require('./category.js')
@@ -48,14 +48,16 @@ Article.init({
     defaultValue: 0,
     comment: '文章浏览量'
   },
-  create_at: {
+  created_at: {
     type: Sequelize.DATE,
-    allowNull: false
+    allowNull: false,
+    defaultValue: Sequelize.NOW
   }
 }, {
-  db,
+  sequelize,
   modelName: 'article',
-  tableName: 'article'
+  tableName: 'article',
+  timestamps: false
 })
 
 // 文章关联分类

@@ -3,8 +3,9 @@ const {
   Model
 } = require('sequelize')
 const {
-  db
-} = require('../lib/core.js')
+  sequelize
+} = require("../config/dbCon.js")
+
 const {
   Comment
 } = require('./comment.js')
@@ -32,14 +33,16 @@ Reply.init({
     type: Sequelize.TEXT,
     allowNull: false
   },
-  create_at: {
+  created_at: {
     type: Sequelize.DATE,
-    allowNull: false
+    allowNull: false,
+    defaultValue: Sequelize.NOW
   }
 }, {
-  db,
+  sequelize,
   modelName: "reply",
-  tableName: 'reply'
+  tableName: 'reply',
+  timestamps: false
 })
 
 // 一对多 评论表下有多个评论

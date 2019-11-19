@@ -3,8 +3,8 @@ const {
   Model
 } = require('sequelize')
 const {
-  db
-} = require('../lib/core.js')
+  sequelize
+} = require("../config/dbCon.js")
 
 class Column extends Model {}
 
@@ -34,14 +34,16 @@ Column.init({
     allowNull: false,
     comment: '专栏封面'
   },
-  create_at: {
+  created_at: {
     type: Sequelize.DATE,
-    allowNull: false
+    allowNull: false,
+    defaultValue: Sequelize.NOW
   }
 }, {
-  db,
+  sequelize,
   modelName: 'column',
-  tableName: 'column'
+  tableName: 'column',
+  timestamps: false
 })
 
 module.exports = {

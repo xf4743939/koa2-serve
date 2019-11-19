@@ -1,11 +1,10 @@
 const {
   Sequelize,
-  Model,
-  DataTypes
+  Model
 } = require('sequelize')
 
 const {
-  db
+  sequelize
 } = require("../config/dbCon.js")
 // 定义模型和表之间的映射
 class Admin extends Model {}
@@ -18,7 +17,7 @@ Admin.init({
     autoIncrement: true,
   },
   nickname: {
-    type: Sequelize.STRING(64),
+    type: Sequelize.STRING,
     allowNull: false,
     comment: '管理员名称'
   },
@@ -32,15 +31,16 @@ Admin.init({
     allowNull: false,
     comment: "管理员密码"
   },
-  ceeatedAt: {
+  created_at: {
     type: Sequelize.DATE,
     allowNull: false,
     defaultValue: Sequelize.NOW
   }
 }, {
-  db,
+  sequelize,
   modelName: 'admin',
-  tableName: 'admin'
+  tableName: 'admin',
+  timestamps: false
 })
 
 module.exports = {

@@ -3,8 +3,8 @@ const {
   Model
 } = require('sequelize')
 const {
-  db
-} = require('../lib/core.js')
+  sequelize
+} = require("../config/dbCon.js")
 
 class Comment extends Model {}
 
@@ -37,14 +37,16 @@ Comment.init({
     type: Sequelize.TEXT,
     allowNull: false
   },
-  create_at: {
+  created_at: {
     type: Sequelize.DATE,
-    allowNull: false
+    allowNull: false,
+    defaultValue: Sequelize.NOW
   }
 }, {
-  db,
+  sequelize,
   modelName: 'comment',
-  tableName: 'comment'
+  tableName: 'comment',
+  timestamps: false
 })
 
 module.exports = {

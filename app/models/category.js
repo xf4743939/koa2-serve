@@ -3,8 +3,8 @@ const {
   Model
 } = require('sequelize')
 const {
-  db
-} = require('../lib/core.js')
+  sequelize
+} = require("../config/dbCon.js")
 
 class Category extends Model {}
 
@@ -30,14 +30,16 @@ Category.init({
     defaultValue: 0,
     comment: "分类父级ID,默认为0"
   },
-  create_at: {
+  created_at: {
     type: Sequelize.DATE,
-    allowNull: false
+    allowNull: false,
+    defaultValue: Sequelize.NOW
   }
 }, {
   sequelize,
   modelName: 'category',
-  tableName: 'category'
+  tableName: 'category',
+  timestamps: false
 })
 
 module.exports = {

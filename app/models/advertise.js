@@ -3,8 +3,8 @@ const {
   Model
 } = require('sequelize')
 const {
-  db
-} = require('../lib/core.js')
+  sequelize
+} = require("../config/dbCon.js")
 
 class Advertise extends Model {}
 
@@ -24,15 +24,16 @@ Advertise.init({
     allowNull: false,
     comment: '广告链接'
   },
-  ceeated_at: {
+  created_at: {
     type: Sequelize.DATE,
     allowNull: false,
     defaultValue: Sequelize.NOW
   }
 }, {
-  db,
+  sequelize,
   modelName: 'advertise',
-  tableName: 'advertise'
+  tableName: 'advertise',
+  timestamps: false
 })
 
 module.exports = {

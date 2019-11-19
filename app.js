@@ -13,10 +13,8 @@ app.use(bodyParser())
 app.use(json())
 app.use(logger())
 
-
-
 InitManager.initApp(app)
 
-app.listen(3000, () => {
-  console.log(`listening at port 3000`)
+app.listen(3001, () => {
+  console.log(`listening at port 8888`)
 })

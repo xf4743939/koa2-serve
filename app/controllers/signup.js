@@ -1,3 +1,0 @@
-exports.postSignUp = async ctx => {
-
-}

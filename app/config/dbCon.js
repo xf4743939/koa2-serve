@@ -1,18 +1,24 @@
 const Sequelize = require('sequelize')
-const chalk = require("chalk")
+
 const sqlConfig = {
-  database: 'lin-cms',
+  database: 'boy',
   host: 'localhost',
   port: 3306,
   username: 'root',
   password: '',
 }
 
-const db = new Sequelize(sqlConfig.database, sqlConfig.username, sqlConfig.password, {
+const sequelize = new Sequelize(sqlConfig.database, sqlConfig.username, sqlConfig.password, {
   host: sqlConfig.host,
   dialect: 'mysql',
   port: sqlConfig.port,
   logging: true,
+  define: {
+    timestamps: true,
+    paranoid: true,
+    createdAt: 'created_at',
+    underscored: true
+  },
   pool: {
     max: 10,
     min: 0,
@@ -21,10 +27,16 @@ const db = new Sequelize(sqlConfig.database, sqlConfig.username, sqlConfig.passw
   timezone: '+08:00' //东八时区
 })
 // 自动同步所有model
-db.sync({
-  force: false
+sequelize.sync({
+  force: true
+})
+
+sequelize.authenticate().then(() => {
+  console.log('Connection has been established successfully.')
+}).catch(err => {
+  console.error('Unable to connect to the database:', err)
 })
 
 module.exports = {
-  db
+  sequelize
 }
