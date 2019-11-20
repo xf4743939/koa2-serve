@@ -22,17 +22,11 @@ ColumnChapter.init({
     type: Sequelize.STRING(64),
     allowNull: false,
     comment: '专栏章节标题'
-  },
-  created_at: {
-    type: Sequelize.DATE,
-    allowNull: false,
-    defaultValue: Sequelize.NOW
   }
 }, {
   sequelize,
   modelName: 'column_chapter',
-  tableName: 'column_chapter',
-  timestamps: false
+  tableName: 'column_chapter'
 })
 // 一对多：专栏表下拥有多个章节
 Column.hasMany(ColumnChapter, {

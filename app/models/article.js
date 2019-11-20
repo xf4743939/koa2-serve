@@ -47,17 +47,11 @@ Article.init({
     allowNull: true,
     defaultValue: 0,
     comment: '文章浏览量'
-  },
-  created_at: {
-    type: Sequelize.DATE,
-    allowNull: false,
-    defaultValue: Sequelize.NOW
   }
 }, {
   sequelize,
   modelName: 'article',
-  tableName: 'article',
-  timestamps: false
+  tableName: 'article'
 })
 
 // 文章关联分类

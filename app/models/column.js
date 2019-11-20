@@ -33,17 +33,11 @@ Column.init({
     type: Sequelize.STRING,
     allowNull: false,
     comment: '专栏封面'
-  },
-  created_at: {
-    type: Sequelize.DATE,
-    allowNull: false,
-    defaultValue: Sequelize.NOW
   }
 }, {
   sequelize,
   modelName: 'column',
-  tableName: 'column',
-  timestamps: false
+  tableName: 'column'
 })
 
 module.exports = {

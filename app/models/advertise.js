@@ -23,17 +23,11 @@ Advertise.init({
     type: Sequelize.STRING(64),
     allowNull: false,
     comment: '广告链接'
-  },
-  created_at: {
-    type: Sequelize.DATE,
-    allowNull: false,
-    defaultValue: Sequelize.NOW
   }
 }, {
   sequelize,
   modelName: 'advertise',
-  tableName: 'advertise',
-  timestamps: false
+  tableName: 'advertise'
 })
 
 module.exports = {

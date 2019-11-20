@@ -11,9 +11,8 @@ const {
   isEqual
 } = require('lodash')
 
-class AdminValidator {
+class RegisterValidator {
   async validator(params) {
-
     if (!validator.isLength(params.nickname, {
         min: 4,
         max: 16
@@ -48,4 +47,31 @@ class AdminValidator {
   }
 }
 
-module.exports = AdminValidator
+class LoginValidator {
+  constructor() {
+
+  }
+  validator(params) {
+    if (validator.isEmpty(params.email)) {
+      const err = new ParamException('邮箱不能为空')
+      throw err
+    }
+    if (!validator.isEmail(params.email)) {
+      const err = new ParamException('邮箱不合法')
+      throw err
+    }
+    if (!validator.isLength(params.password, {
+        min: 6,
+        max: 30
+      })) {
+      const err = new ParamException('密码长度6~30位字符')
+      throw err
+    }
+    return params
+  }
+}
+
+module.exports = {
+  RegisterValidator,
+  LoginValidator
+}

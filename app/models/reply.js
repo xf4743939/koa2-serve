@@ -32,17 +32,11 @@ Reply.init({
   content: {
     type: Sequelize.TEXT,
     allowNull: false
-  },
-  created_at: {
-    type: Sequelize.DATE,
-    allowNull: false,
-    defaultValue: Sequelize.NOW
   }
 }, {
   sequelize,
   modelName: "reply",
-  tableName: 'reply',
-  timestamps: false
+  tableName: 'reply'
 })
 
 // 一对多 评论表下有多个评论

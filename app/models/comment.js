@@ -36,17 +36,11 @@ Comment.init({
   content: {
     type: Sequelize.TEXT,
     allowNull: false
-  },
-  created_at: {
-    type: Sequelize.DATE,
-    allowNull: false,
-    defaultValue: Sequelize.NOW
   }
 }, {
   sequelize,
   modelName: 'comment',
-  tableName: 'comment',
-  timestamps: false
+  tableName: 'comment'
 })
 
 module.exports = {

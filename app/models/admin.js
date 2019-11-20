@@ -1,3 +1,5 @@
+const bcrypt = require('bcryptjs')
+
 const {
   Sequelize,
   Model
@@ -25,22 +27,23 @@ Admin.init({
     type: Sequelize.STRING,
     allowNull: false,
     unique: true,
+    comment: '管理员邮箱'
   },
   password: {
     type: Sequelize.STRING,
     allowNull: false,
-    comment: "管理员密码"
-  },
-  created_at: {
-    type: Sequelize.DATE,
-    allowNull: false,
-    defaultValue: Sequelize.NOW
+    comment: "管理员密码",
+    set(val) {
+      // 加密
+      const salt = bcrypt.genSaltSync(10)
+      const pwd = bcrypt.hashSync(val, salt)
+      this.setDataValue("password", pwd)
+    }
   }
 }, {
   sequelize,
   modelName: 'admin',
-  tableName: 'admin',
-  timestamps: false
+  tableName: 'admin'
 })
 
 module.exports = {

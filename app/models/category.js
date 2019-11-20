@@ -29,17 +29,11 @@ Category.init({
     allowNull: true,
     defaultValue: 0,
     comment: "分类父级ID,默认为0"
-  },
-  created_at: {
-    type: Sequelize.DATE,
-    allowNull: false,
-    defaultValue: Sequelize.NOW
   }
 }, {
   sequelize,
   modelName: 'category',
-  tableName: 'category',
-  timestamps: false
+  tableName: 'category'
 })
 
 module.exports = {

@@ -12,7 +12,7 @@ class HttpException extends Error {
   }
 }
 
-class Existing extends Error {
+class Existing extends HttpException {
   constructor(msg = "已存在", code = 412) {
     super()
     this.code = code
@@ -29,8 +29,36 @@ class ParamException extends HttpException {
   }
 }
 
+class AuthFailed extends HttpException {
+  constructor(msg, code) {
+    super()
+    this.code = code || 401
+    this.msg = msg || '授权失败'
+  }
+}
+
+class NotFound extends HttpException {
+  constructor(msg, code) {
+    super()
+    this.code = code || 404
+    this.msg = msg || '404找不到'
+  }
+}
+
+class Forbidden extends HttpException {
+  constructor(msg, code) {
+    super()
+    this.code = code || 412
+    this.msg = msg || '禁止访问'
+  }
+}
+
+
 module.exports = {
   HttpException,
   Existing,
-  ParamException
+  ParamException,
+  AuthFailed,
+  NotFound,
+  Forbidden
 }

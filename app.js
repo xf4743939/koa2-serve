@@ -15,6 +15,6 @@ app.use(logger())
 
 InitManager.initApp(app)
 
-app.listen(3001, () => {
+app.listen(3000, () => {
   console.log(`listening at port 8888`)
 })

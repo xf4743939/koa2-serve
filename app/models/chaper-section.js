@@ -32,17 +32,11 @@ ChaperSection.init({
   content: {
     type: Sequelize.TEXT,
     allowNull: false
-  },
-  created_at: {
-    type: Sequelize.DATE,
-    allowNull: false,
-    defaultValue: Sequelize.NOW
   }
 }, {
   sequelize,
   modelName: 'chaper_section',
-  tableName: 'chaper_section',
-  timestamps: false
+  tableName: 'chaper_section'
 })
 
 // 一对多：章节表下拥有多个专栏文章

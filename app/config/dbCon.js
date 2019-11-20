@@ -12,7 +12,7 @@ const sequelize = new Sequelize(sqlConfig.database, sqlConfig.username, sqlConfi
   host: sqlConfig.host,
   dialect: 'mysql',
   port: sqlConfig.port,
-  logging: true,
+  logging: false,
   define: {
     timestamps: true,
     paranoid: true,
@@ -28,7 +28,7 @@ const sequelize = new Sequelize(sqlConfig.database, sqlConfig.username, sqlConfi
 })
 // 自动同步所有model
 sequelize.sync({
-  force: true
+  force: false
 })
 
 sequelize.authenticate().then(() => {
