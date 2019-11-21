@@ -12,12 +12,19 @@ const sequelize = new Sequelize(sqlConfig.database, sqlConfig.username, sqlConfi
   host: sqlConfig.host,
   dialect: 'mysql',
   port: sqlConfig.port,
-  logging: false,
+  logging: true,
   define: {
     timestamps: true,
     paranoid: true,
     createdAt: 'created_at',
-    underscored: true
+    underscored: true,
+    scopes: {
+      bh: {
+        attributes: {
+          exclude: ['created_at,updated_at,deleted_at']
+        }
+      }
+    }
   },
   pool: {
     max: 10,

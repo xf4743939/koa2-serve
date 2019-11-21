@@ -6,7 +6,7 @@ class Auth {
     this.level = level || 1
     Auth.USER = 8
     Auth.ADMIN = 16
-    Auth.SPUSER_ADMIN = 32
+    Auth.SUPER_ADMIN = 32
   }
   get m() {
 
@@ -44,6 +44,15 @@ class Auth {
         scope: decode.scope
       }
       await next()
+    }
+  }
+
+  static vertifyToken(token) {
+    try {
+      jwt.verify(token, global.config.security.secretKey)
+      return true
+    } catch (error) {
+      return false
     }
   }
 }

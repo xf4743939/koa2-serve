@@ -1,7 +1,9 @@
+const validator = require('validator')
+
 const {
   Admin
 } = require('../models/admin.js')
-const validator = require('validator')
+
 const {
   ParamException
 } = require('../lib/exception.js')
