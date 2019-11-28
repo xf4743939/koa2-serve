@@ -42,6 +42,7 @@ router.put('/advertise/:id', new Auth(AUTH_ADMIN).m, async (ctx) => {
   const id = ctx.params.id
 
   AdvertiseValidator.isInt(id)
+  AdvertiseValidator.create(body)
   await AdvertiseDao.update(parseInt(id), body)
   ctx.response.status = 200
   ctx.body = {

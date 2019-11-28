@@ -1,3 +1,4 @@
+const moment = require('moment')
 const {
   Sequelize,
   Model
@@ -47,6 +48,14 @@ Article.init({
     allowNull: true,
     defaultValue: 0,
     comment: '文章浏览量'
+  },
+  created_at: {
+    type: Sequelize.DATE,
+    allowNull: false,
+    defaultValue: Date.now,
+    get() {
+      return moment(this.getDataValue('created_at')).format("YYYY-MM-DD")
+    }
   }
 }, {
   sequelize,
