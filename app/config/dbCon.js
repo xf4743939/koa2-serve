@@ -15,13 +15,20 @@ const sequelize = new Sequelize(sqlConfig.database, sqlConfig.username, sqlConfi
   logging: true,
   define: {
     timestamps: true,
-    paranoid: true,
+    paranoid: true, // 表示软删除
     createdAt: 'created_at',
+    updatedAt: 'updated_at',
+    deletedAt: 'deleted_at',
     underscored: true,
     scopes: {
       bh: {
         attributes: {
-          exclude: ['created_at,updated_at,deleted_at']
+          exclude: ['created_at', 'updated_at', 'deleted_at']
+        }
+      },
+      iv: {
+        attributes: {
+          exclude: ['content', 'password', 'updated_at', 'deleted_at']
         }
       }
     }

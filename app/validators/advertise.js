@@ -22,9 +22,11 @@ class AdvertiseValidator {
     }
   }
   static isInt(id) {
+    
     if (!validator.isInt(id, {
         min: 1
       })) {
+      
       throw new ParamException('id需要正整数')
     }
   }

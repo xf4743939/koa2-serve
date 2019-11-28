@@ -1,3 +1,4 @@
+const moment = require('moment')
 const {
   Sequelize,
   Model
@@ -23,6 +24,14 @@ Advertise.init({
     type: Sequelize.STRING(64),
     allowNull: false,
     comment: '广告链接'
+  },
+  created_at: {
+    type: Sequelize.DATE,
+    allowNull: false,
+    defaultValue: Date.now,
+    get() {
+      return moment(this.getDataValue('created_at')).format("YYYY-MM-DD")
+    }
   }
 }, {
   sequelize,
