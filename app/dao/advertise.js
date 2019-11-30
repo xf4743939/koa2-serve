@@ -74,7 +74,7 @@ class AdvertiseDao {
     })
     return {
       cur_page: parseInt(page),
-      data: advertise.rows,
+      advertises: advertise.rows,
       count: advertise.count,
       total: advertise.count,
       total_page: Math.ceil(advertise.count / 10)

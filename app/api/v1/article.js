@@ -17,8 +17,97 @@ const router = new Router({
 /** 
  * 创建文章
  */
-router.post(`/artice`, new Auth().m, async (ctx) => {
+router.post(`/article`, new Auth(AUTH_ADMIN).m, async (ctx) => {
   const body = ctx.request.body
   ArticleValidator.valid(body)
-  await ArticleDao.create()
+  await ArticleDao.create(body)
+  ctx.response.status = 200
+  ctx.body = {
+    code: 0,
+    msg: "创建文章成功"
+  }
 })
+
+/**
+ * 删除文章
+ */
+router.delete(`/article/:id`, new Auth(AUTH_ADMIN).m, async (ctx) => {
+  const id = ctx.params.id
+
+  ArticleValidator.isInt(id)
+  await ArticleDao.destroy(parseInt(id))
+  ctx.response.status = 200
+  ctx.body = {
+    code: 0,
+    msg: "删除文章成功"
+  }
+})
+
+/**
+ * 更新文章 
+ */
+router.put(`/article/:id`, new Auth(AUTH_ADMIN).m, async (ctx) => {
+
+  const id = ctx.params.id
+  const body = ctx.request.body
+  ArticleValidator.isInt(id)
+  ArticleValidator.valid(body)
+  await ArticleDao.update(parseInt(id), body)
+  ctx.response.status = 200
+  ctx.body = {
+    code: 0,
+    msg: '更新文章成功'
+  }
+})
+
+/**
+ *获取文章列表 
+ */
+router.get(`/article`, async (ctx) => {
+  // 获取页面 排序方法 分类id  搜索关键字
+  // 查询文章
+
+  const res = await ArticleDao.list(ctx.query)
+
+  ctx.response.status = 200
+  ctx.body = {
+    code: 0,
+    msg: "成功",
+    data: {
+      ...res
+    }
+  }
+})
+
+/**
+ * 获取文章详情 
+ */
+router.get(`/article/:id`, async (ctx) => {
+  const id = ctx.params.id
+  ArticleValidator.isInt(id)
+  const article = await ArticleDao.detail(parseInt(id))
+  // 获取此文章的评论列表
+
+  /* ***** */
+  // 更新文章浏览
+  await ArticleDao.updateBrowse(parseInt(id), ++article)
+
+  ctx.response.status = 200
+  ctx.body = {
+    code: 0,
+    data: article,
+    msg: "成功",
+  }
+})
+
+/**
+ * 返回首页的文章和专栏
+ */
+router.get('/home', async (ctx) => {
+  ctx.response.status = 200
+  ctx.body = {
+    code: 0,
+    msg: "回首页成功"
+  }
+})
+module.exports = router

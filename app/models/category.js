@@ -1,3 +1,4 @@
+const moment = require('moment')
 const {
   Sequelize,
   Model
@@ -29,6 +30,14 @@ Category.init({
     allowNull: true,
     defaultValue: 0,
     comment: "分类父级ID,默认为0"
+  },
+  created_at: {
+    type: Sequelize.DATE,
+    allowNull: false,
+    defaultValue: Date.now,
+    get() {
+      return moment(this.getDataValue('created_at')).format("YYYY-MM-DD")
+    }
   }
 }, {
   sequelize,

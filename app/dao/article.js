@@ -11,7 +11,7 @@ const {
 class ArticleDao {
   // 创建文章
   static async create(body) {
-    const hasArticle = Article.findOne({
+    const hasArticle = await Article.findOne({
       where: {
         title: body.title,
         deleted_at: null
@@ -22,12 +22,12 @@ class ArticleDao {
     }
     const article = new Article()
     article.title = body.title
-    article.author = body.author || ''
+    article.author = body.author
     article.description = body.description || ''
     article.content = body.content
     article.cover = body.cover
     article.browse = body.browse || 0
-    article.category_id = body.category_id
+    article.category_id = Number(body.category_id)
     article.save()
   }
   // 获取文章列表
@@ -39,6 +39,7 @@ class ArticleDao {
       pageSize = 10,
       desc = 'created_at'
     } = params
+
     // 筛选方式
     let filter = {
       deleted_at: null
@@ -47,17 +48,21 @@ class ArticleDao {
     if (category_id) {
       filter.category_id = category_id
     }
+
     // 存在搜索关键字
-    if (title) {
+    if (keyword) {
       filter.title = {
         [Op.like]: `%${keyword}%`
       }
     }
-    const article = await Article.findAndCountAll({
+
+    const article = await Article.scope('iv').findAndCountAll({
       limit: pageSize, // 每页几条
       offset: (page - 1) * pageSize,
       where: filter,
-      order: [desc, 'DESC'],
+      order: [
+        [desc, 'DESC']
+      ],
       include: [{
         model: Category,
         as: 'category',
@@ -67,7 +72,7 @@ class ArticleDao {
       }]
     })
     return {
-      data: article.rows,
+      articles: article.rows,
       cur_page: parseInt(page),
       total: article.count,
       total_pages: Math.ceil(article.count / 10)
@@ -77,7 +82,8 @@ class ArticleDao {
   // 删除文章
   static async destroy(id) {
     // 检查是否存在文章
-    const article = await article.findOne({
+
+    const article = await Article.findOne({
       where: {
         id,
         deleted_at: null
@@ -116,6 +122,26 @@ class ArticleDao {
   }
   //文章详情
   static async detail(id) {
-
+    // 检查是否存在文章
+    const article = await article.findOne({
+      where: {
+        id,
+        include: [{
+          mode: Category,
+          as: 'category',
+          attributes: {
+            exclude: ['deleted_at', 'updated_at']
+          }
+        }]
+      }
+    })
+    if (!article) {
+      throw new global.errs.NotFound('没有找到相关文章')
+    }
+    return article
   }
+}
+
+module.exports = {
+  ArticleDao
 }

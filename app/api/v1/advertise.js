@@ -57,11 +57,13 @@ router.get('/advertise', async (ctx) => {
   AdvertiseValidator.isInt(page)
   const res = await AdvertiseDao.list(parseInt(page))
   ctx.response.status = 200
-  res2 = Object.assign(res, {
+  ctx.body = {
     code: 0,
-    msg: "成功"
-  })
-  ctx.body = res2
+    msg: "成功",
+    data: {
+      ...res
+    }
+  }
 })
 
 // 获取广告详情

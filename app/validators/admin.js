@@ -15,14 +15,14 @@ const {
 
 class RegisterValidator {
   async validator(params) {
-    if (!validator.isLength(params.nickname, {
+    if (!params.nickname || !validator.isLength(params.nickname, {
         min: 4,
         max: 16
       })) {
       const err = new ParamException('昵称4~12位字符')
       throw err
     }
-    if (validator.isEmpty(params.email)) {
+    if (!params.email || validator.isEmpty(params.email)) {
       const err = new ParamException('邮箱不能为空')
       throw err
     }
@@ -30,7 +30,7 @@ class RegisterValidator {
       const err = new ParamException('邮箱不合法')
       throw err
     }
-    if (validator.isEmpty(params.password)) {
+    if (!params.password || validator.isEmpty(params.password)) {
       const err = new ParamException('密码不能为空')
       throw err
     }

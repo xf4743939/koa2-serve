@@ -9,12 +9,12 @@ class AdvertiseValidator {
     if (!params || Object.keys(params).length) {
       throw new ParamException('参数不能为空')
     }
-    if (!validator.isLength(params.title, {
+    if (!params.title || !validator.isLength(params.title, {
         min: 1
       })) {
       throw new ParamException('广告标题不能为空')
     }
-    if (!validator.isLength(params.link, {
+    if (!params.link || !validator.isLength(params.link, {
         min: 1
       })) {
 
