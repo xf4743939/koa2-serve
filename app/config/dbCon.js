@@ -2,10 +2,10 @@ const Sequelize = require('sequelize')
 
 const sqlConfig = {
   database: 'boy',
-  host: 'localhost',
+  host: '134.175.141.31',
   port: 3306,
   username: 'root',
-  password: '',
+  password: 'xuFAN4743939.',
 }
 
 const sequelize = new Sequelize(sqlConfig.database, sqlConfig.username, sqlConfig.password, {
