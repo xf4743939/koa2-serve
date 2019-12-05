@@ -8,7 +8,7 @@ class CommentDao {
   // 创建评论
   static async create(v) {
     const comment = new Comment()
-    comment.target_id = v.target_id
+    comment.target_id = +v.target_id
     comment.target_type = v.target_type
     comment.nickname = v.nickname
     comment.email = v.email

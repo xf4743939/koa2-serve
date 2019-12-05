@@ -30,6 +30,7 @@ router.post(`/comment`, async (ctx) => {
 // 获取评论详情
 router.get(`/comment/:id`, async (ctx) => {
   const id = ctx.params.id
+  console.log(id,'id')
   CommentValidator.isInt(id)
   const comment = await CommentDao.detail(parseInt(id))
   ctx.response.status = 200
