@@ -6,7 +6,7 @@ const {
 } = require('../models/reply.js')
 class CommentDao {
   // 创建评论
-  static async create(body) {
+  static async create(v) {
     const comment = new Comment()
     comment.target_id = v.target_id
     comment.target_type = v.target_type
