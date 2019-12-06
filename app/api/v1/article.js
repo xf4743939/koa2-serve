@@ -8,6 +8,10 @@ const {
 const {
   ArticleDao
 } = require('../../dao/article.js')
+const {
+  CommentDao
+} = require('../../dao/comment.js')
+
 const AUTH_ADMIN = 16;
 
 const router = new Router({
@@ -68,7 +72,6 @@ router.get(`/article`, async (ctx) => {
   // 查询文章
 
   const res = await ArticleDao.list(ctx.query)
-
   ctx.response.status = 200
   ctx.body = {
     code: 0,
@@ -81,17 +84,21 @@ router.get(`/article`, async (ctx) => {
 
 /**
  * 获取文章详情 
+ * @Date 2019/12/06 完成文章详情
  */
 router.get(`/article/:id`, async (ctx) => {
   const id = ctx.params.id
   ArticleValidator.isInt(id)
   const article = await ArticleDao.detail(parseInt(id))
-  // 获取此文章的评论列表
-
+  //获取关联文章的评论列表
+  const commentList = await CommentDao.targetComment({
+    target_id: article.target_id,
+    target_type: article.target_type
+  })
   /* ***** */
   // 更新文章浏览
   await ArticleDao.updateBrowse(parseInt(id), ++article)
-
+  await article.setDataValue('comments', commentList)
   ctx.response.status = 200
   ctx.body = {
     code: 0,
@@ -102,6 +109,8 @@ router.get(`/article/:id`, async (ctx) => {
 
 /**
  * 返回首页的文章和专栏
+ * @data 2019/12/06
+ * 暂未完成
  */
 router.get('/home', async (ctx) => {
   ctx.response.status = 200

@@ -4,9 +4,9 @@ const {
   ParamException
 } = require('../lib/exception.js')
 
-class CommentValidator {
+class ReplyValidator {
   static isEmpty(params) {
-    
+
     if (!params.nickname || !validator.isLength(params.nickname, {
         min: 1
       })) {
@@ -17,23 +17,18 @@ class CommentValidator {
       throw err
     }
     if (!validator.isEmail(params.email)) {
-      
+
       const err = new ParamException('邮箱不合法')
       throw err
     }
-    
+
     if (!params.content || !validator.isLength(params.content, {
         min: 1
       })) {
       throw new ParamException('评论内容不能为空')
     }
-    if (!params.target_id) {
-      throw new ParamException('目标id 不能为空')
-    }
-    if (!params.target_type || !validator.isLength(params.target_type, {
-        min: 1
-      })) {
-      throw new ParamException('目标类型不能为空')
+    if (!params.comment_id) {
+      throw new ParamException('目标id不能为空')
     }
   }
 
@@ -47,5 +42,5 @@ class CommentValidator {
 }
 
 module.exports = {
-  CommentValidator
+  ReplyValidator
 }

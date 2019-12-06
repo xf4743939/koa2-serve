@@ -28,8 +28,7 @@
   "devDependencies": {},
   "scripts": {
     "start": "cross-env NODE_ENV=development nodemon app.js",
-    "start:prod": "cross-env NODE_ENV=production node starter.js",
-    "db": "node app/config/dbCon.js"
+    "start:prod": "cross-env NODE_ENV=production node starter.js"
   },
   "repository": {
     "type": "git",
