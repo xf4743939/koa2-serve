@@ -43,8 +43,9 @@ router.get(`/reply/:id`, async (ctx) => {
 
 // 获取回复列表
 router.get(`/reply`, async (ctx) => {
-  const page = +ctx.query.page || 1
-  const list = await ReplyDao.list(page)
+  const comment_id = ctx.query.comment_id || ''
+  ReplyValidator.isInt(comment_id)
+  const list = await ReplyDao.list(parseInt(comment_id))
   ctx.response.status = 200
   ctx.body = {
     code: 0,
@@ -60,7 +61,6 @@ router.put(`/reply/:id`, new Auth(AUTH_ADMIN).m, async (ctx) => {
 
   ReplyValidator.isInt(id)
   ReplyValidator.isEmpty(body)
-
   await ReplyDao.update(parseInt(id), body)
   ctx.response.status = 200
   ctx.body = {

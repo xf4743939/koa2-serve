@@ -123,18 +123,19 @@ class ArticleDao {
   //文章详情
   static async detail(id) {
     // 检查是否存在文章
-    const article = await article.findOne({
+    const article = await Article.findOne({
       where: {
-        id,
-        include: [{
-          mode: Category,
-          as: 'category',
-          attributes: {
-            exclude: ['deleted_at', 'updated_at']
-          }
-        }]
-      }
+        id
+      },
+      include: [{
+        model: Category,
+        as: 'category',
+        attributes: {
+          exclude: ['deleted_at', 'updated_at']
+        }
+      }]
     })
+
     if (!article) {
       throw new global.errs.NotFound('没有找到相关文章')
     }

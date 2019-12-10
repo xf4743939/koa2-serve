@@ -18,8 +18,10 @@ class CommentDao {
   // 删除评论
   static async destroy(id) {
     const comment = await Comment.findOne({
-      id,
-      deleted_at: null
+      where: {
+        id,
+        deleted_at: null
+      }
     })
     if (!comment) {
       throw new global.errs.NotFound('没有找到相关评论')
@@ -29,8 +31,10 @@ class CommentDao {
   // 获取评论详情
   static async detail(id) {
     const comment = await Comment.scope('iv').findOne({
-      id,
-      deleted_at: null,
+      where: {
+        id,
+        deleted_at: null,
+      },
       attributes: {
         exclude: ['email', 'updated_at']
       },
@@ -64,7 +68,8 @@ class CommentDao {
   // 获取评价列表
   static async list(page = 1) {
     const pageSize = 10
-    const comment = await Comment.scope("bh").findAndCountAll({
+
+    const comment = await Comment.scope('bh').findAndCountAll({
       where: {
         deleted_at: null
       },
@@ -96,9 +101,11 @@ class CommentDao {
     } = params
     const pageSize = 10
     const comment = await Comment.findAndCountAll({
-      target_id,
-      target_type,
-      deleted_at: null,
+      where: {
+        target_id,
+        target_type,
+        deleted_at: null,
+      },
       // limit: pageSize,
       offset: (page - 1) * pageSize,
       order: [
@@ -118,13 +125,6 @@ class CommentDao {
     return {
       data: comment.rows
     }
-    // return {
-    //   cur_page: parseInt(page),
-    //   comments: comment.rows,
-    //   count: comment.count,
-    //   total: comment.count,
-    //   total_page: Math.ceil(comment.count / 10)
-    // }
   }
 }
 module.exports = {

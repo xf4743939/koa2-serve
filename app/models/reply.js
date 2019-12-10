@@ -1,3 +1,4 @@
+const moment = require('moment')
 const {
   Sequelize,
   Model
@@ -32,6 +33,13 @@ Reply.init({
   content: {
     type: Sequelize.TEXT,
     allowNull: false
+  },
+  created_at: {
+    type: Sequelize.DATE,
+    defaultValue: Date.now,
+    get() {
+      return moment(this.getDataValue('created_at')).format('YYYY-MM-DD')
+    }
   }
 }, {
   sequelize,

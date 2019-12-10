@@ -88,17 +88,20 @@ router.get(`/article`, async (ctx) => {
  */
 router.get(`/article/:id`, async (ctx) => {
   const id = ctx.params.id
+
   ArticleValidator.isInt(id)
   const article = await ArticleDao.detail(parseInt(id))
   //获取关联文章的评论列表
+
   const commentList = await CommentDao.targetComment({
-    target_id: article.target_id,
-    target_type: article.target_type
+    target_id: article.id,
+    target_type: 'article'
   })
   /* ***** */
   // 更新文章浏览
-  await ArticleDao.updateBrowse(parseInt(id), ++article)
-  await article.setDataValue('comments', commentList)
+  await ArticleDao.updateBrowse(parseInt(id), ++article.browse)
+  await article.setDataValue('comments', commentList.data)
+
   ctx.response.status = 200
   ctx.body = {
     code: 0,

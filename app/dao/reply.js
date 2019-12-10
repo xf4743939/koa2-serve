@@ -23,9 +23,12 @@ class ReplyDao {
 
   // 获取回复详情
   static async detail(id) {
+
     const reply = await Reply.scope('iv').findOne({
-      id,
-      deleted_at: null,
+      where: {
+        id,
+        deleted_at: null
+      },
       attributes: {
         exclude: ['email', 'updated_at']
       }
@@ -39,8 +42,10 @@ class ReplyDao {
   // 删除回复
   static async destroy(id) {
     const reply = await Reply.findOne({
-      id,
-      deleted_at: null
+      where: {
+        id,
+        deleted_at: null
+      }
     })
     if (!reply) {
       throw new global.errs.NotFound('没有找到相关回复')
@@ -67,6 +72,9 @@ class ReplyDao {
       where: {
         comment_id,
         deleted_at: null
+      },
+      attributes: {
+        exclude: ['updated_at', 'deleted_at']
       },
       order: [
         ['created_at', 'DESC']
