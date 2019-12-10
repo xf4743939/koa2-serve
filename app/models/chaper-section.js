@@ -11,9 +11,9 @@ const {
   ColumnChapter
 } = require('./column_chapter.js')
 
-class ChaperSection extends Model {}
+class ChapterSection extends Model {}
 
-ChaperSection.init({
+ChapterSection.init({
   id: {
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -53,5 +53,5 @@ ChaperSection.belongsTo(ColumnChapter, {
 })
 
 module.exports = {
-  ChaperSection
+  ChapterSection
 }
